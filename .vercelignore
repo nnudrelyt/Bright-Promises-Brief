@@ -1,9 +1,9 @@
-video/
-img/
-screenshots/
-_assets/
-fonts/
-wireframe.html
+/video/
+/img/
+/screenshots/
+/_assets/
+/fonts/
+/wireframe.html
 *.zip
 node_modules/
 dist/
