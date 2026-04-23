@@ -234,7 +234,7 @@ export default function BrightPromisesBrief() {
             <span className="text-[11px] uppercase tracking-[0.2em] text-orange-700 font-semibold">Creative & Consulting Request</span>
           </div>
           <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight text-stone-900 mb-6 whitespace-nowrap">
-            Project <span className="italic">Brief</span><span className="text-orange-600">.</span>
+            Project Brief<span className="text-orange-600">.</span>
           </h1>
           <p className="text-stone-600 text-[15px] leading-relaxed max-w-xl font-body">
             This brief helps us collaborate with creative and consulting partners. The more specific you can
