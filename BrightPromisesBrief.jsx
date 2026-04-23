@@ -190,9 +190,8 @@ export default function BrightPromisesBrief() {
   return (
     <div className="min-h-screen font-body text-stone-900" style={{ background: "#FBF5E9" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,50&family=Manrope:wght@400;500;600;700&display=swap');
-        .font-display { font-family: 'Fraunces', Georgia, serif; font-variation-settings: "SOFT" 50; }
-        .font-body { font-family: 'Manrope', -apple-system, sans-serif; }
+        .font-display { font-family: 'Brother1816', sans-serif; }
+        .font-body { font-family: 'Brother1816', sans-serif; }
         .grain::before {
           content: "";
           position: fixed; inset: 0; pointer-events: none; z-index: 0;
@@ -245,7 +244,7 @@ export default function BrightPromisesBrief() {
           </div>
           <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-light leading-[0.95] tracking-tight text-stone-900 mb-6">
             Project<br />
-            <span className="italic" style={{ fontVariationSettings: '"SOFT" 100' }}>Brief</span>
+            <span className="italic">Brief</span>
             <span className="text-orange-600">.</span>
           </h1>
           <p className="text-stone-600 text-[15px] leading-relaxed max-w-xl font-body">

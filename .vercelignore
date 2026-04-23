@@ -1,0 +1,10 @@
+video/
+img/
+screenshots/
+_assets/
+fonts/
+wireframe.html
+*.zip
+node_modules/
+dist/
+.DS_Store
