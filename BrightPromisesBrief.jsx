@@ -44,7 +44,7 @@ const Label = ({ children, required }) => (
 );
 
 const Prompt = ({ children }) => (
-  <p className="text-[13.5px] italic text-stone-500 mb-3 leading-relaxed font-body">{children}</p>
+  <p className="text-[15px] italic text-stone-500 mb-4 leading-relaxed font-body max-w-2xl">{children}</p>
 );
 
 const TextField = ({ value, onChange, placeholder, ...rest }) => (
@@ -70,10 +70,10 @@ const TextArea = ({ value, onChange, placeholder, rows = 4 }) => (
 
 const SectionHeader = ({ number, title }) => (
   <div className="flex items-baseline gap-5 mb-5 print:mb-3">
-    <span className="font-display text-5xl md:text-6xl font-light text-orange-700 leading-none tabular-nums">
+    <span className="font-display text-2xl md:text-3xl font-bold text-orange-700 leading-none tabular-nums">
       {String(number).padStart(2, "0")}
     </span>
-    <h2 className="font-display text-2xl md:text-[28px] font-semibold text-stone-900 leading-tight">
+    <h2 className="font-display text-3xl md:text-[40px] font-bold text-stone-900 leading-tight">
       {title}
     </h2>
   </div>
@@ -233,10 +233,8 @@ export default function BrightPromisesBrief() {
             <div className="h-[2px] w-12 bg-orange-600" />
             <span className="text-[11px] uppercase tracking-[0.2em] text-orange-700 font-semibold">Creative & Consulting Request</span>
           </div>
-          <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-light leading-[0.95] tracking-tight text-stone-900 mb-6">
-            Project<br />
-            <span className="italic">Brief</span>
-            <span className="text-orange-600">.</span>
+          <h1 className="font-display text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] tracking-tight text-stone-900 mb-6 whitespace-nowrap">
+            Project <span className="italic">Brief</span><span className="text-orange-600">.</span>
           </h1>
           <p className="text-stone-600 text-[15px] leading-relaxed max-w-xl font-body">
             This brief helps us collaborate with creative and consulting partners. The more specific you can
