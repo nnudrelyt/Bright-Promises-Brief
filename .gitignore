@@ -1,0 +1,5 @@
+video/
+img/
+screenshots/
+*.zip
+.DS_Store
