@@ -7,8 +7,6 @@ const LOGO_SRC = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAD3CAYAAADB
 const initialState = {
   projectName: "",
   dateSubmitted: "",
-  requestedBy: "",
-  program: "",
   projectLead: "",
   workType: "",
   background: "",
@@ -20,11 +18,6 @@ const initialState = {
   outOfScope: "",
   toneShould: "",
   toneShouldNot: "",
-  mandatories: [
-    "Logo must appear on all external deliverables",
-    "Brand colors and fonts per the Bright Promises Brand Guide",
-    "Accessibility: WCAG 2.1 AA minimum for digital work",
-  ],
   timeline: [
     { milestone: "Kickoff meeting", owner: "", date: "" },
     { milestone: "First draft / concepts", owner: "", date: "" },
@@ -36,12 +29,10 @@ const initialState = {
   budgetRange: "",
   budgetApproved: "",
   fundingSource: "",
-  finalApprover: "",
-  reviewers: "",
-  informed: "",
   metrics: ["", "", ""],
   references: "",
   additionalNotes: "",
+  uploadedFiles: "",
 };
 
 // -- Small components ----------------------------------------------------
@@ -151,10 +142,6 @@ export default function BrightPromisesBrief() {
     lines.push("- **Range:** " + (data.budgetRange || "—"));
     lines.push("- **Approved:** " + (data.budgetApproved || "—"));
     lines.push("- **Funding source:** " + (data.fundingSource || "—") + "\n");
-    lines.push("## Stakeholders & Approvals");
-    lines.push("- **Final approver:** " + (data.finalApprover || "—"));
-    lines.push("- **Reviewers:** " + (data.reviewers || "—"));
-    lines.push("- **Informed:** " + (data.informed || "—") + "\n");
     lines.push("## Success Metrics");
     data.metrics.forEach((m) => m && lines.push("- " + m));
     if (data.references) lines.push("\n## References & Inspiration\n" + data.references);
@@ -190,6 +177,10 @@ export default function BrightPromisesBrief() {
   return (
     <div className="min-h-screen font-body text-stone-900" style={{ background: "#FBF5E9" }}>
       <style>{`
+        @font-face { font-family: 'Brother1816'; src: url('/fonts/Brother1816-Book.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Brother1816'; src: url('/fonts/Brother1816-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Brother1816'; src: url('/fonts/Brother1816-Bold.otf') format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Brother1816'; src: url('/fonts/Brother1816-Black.otf') format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
         .font-display { font-family: 'Brother1816', sans-serif; }
         .font-body { font-family: 'Brother1816', sans-serif; }
         .grain::before {
@@ -267,14 +258,8 @@ export default function BrightPromisesBrief() {
               <Label>Type of work</Label>
               <TextField value={data.workType} onChange={(v) => update("workType", v)} placeholder="Creative · Consulting · Strategy · Other" />
             </div>
-            <div>
-              <Label>Requested by</Label>
-              <TextField value={data.requestedBy} onChange={(v) => update("requestedBy", v)} placeholder="Name, title, email" />
-            </div>
-            <div>
-              <Label>Program / dept.</Label>
-              <TextField value={data.program} onChange={(v) => update("program", v)} placeholder="e.g., Development, Communications" />
-            </div>
+
+
             <div className="md:col-span-2">
               <Label>Project lead</Label>
               <TextField value={data.projectLead} onChange={(v) => update("projectLead", v)} placeholder="Day-to-day point of contact" />
@@ -349,28 +334,8 @@ export default function BrightPromisesBrief() {
           </div>
         </Section>
 
-        <Section number={8} title="Mandatories & Brand Guidelines" id="mandatories">
-          <Prompt>Non-negotiables the partner must respect. Edit the defaults below or add your own.</Prompt>
-          <div className="space-y-2">
-            {data.mandatories.map((m, i) => (
-              <div key={i} className="flex items-center gap-3 group">
-                <CircleDot size={14} className="text-orange-600 flex-shrink-0" />
-                <TextField value={m} onChange={(v) => updateArr("mandatories", i, v)} placeholder="Mandatory requirement" />
-                <button
-                  onClick={() => setData((d) => ({ ...d, mandatories: d.mandatories.filter((_, j) => j !== i) }))}
-                  className="no-print opacity-0 group-hover:opacity-100 transition-opacity text-stone-400 hover:text-red-600 text-xs px-2"
-                  aria-label="Remove"
-                >Remove</button>
-              </div>
-            ))}
-            <button
-              onClick={() => setData((d) => ({ ...d, mandatories: [...d.mandatories, ""] }))}
-              className="no-print mt-3 text-[13px] text-orange-700 hover:text-orange-900 font-medium transition-colors"
-            >+ Add requirement</button>
-          </div>
-        </Section>
 
-        <Section number={9} title="Timeline & Key Milestones" id="timeline">
+        <Section number={8} title="Timeline & Key Milestones" id="timeline">
           <Prompt>Note the final deadline first, then work backward. Flag any fixed dates (events, board meetings, mailings).</Prompt>
           <div className="border border-stone-300/70 rounded-sm overflow-hidden bg-white/40">
             <div className="grid grid-cols-12 bg-orange-700 text-white text-[11px] uppercase tracking-[0.14em] font-semibold">
@@ -394,7 +359,7 @@ export default function BrightPromisesBrief() {
           </div>
         </Section>
 
-        <Section number={10} title="Budget" id="budget">
+        <Section number={9} title="Budget" id="budget">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             <div>
               <Label>Budget range</Label>
@@ -411,25 +376,8 @@ export default function BrightPromisesBrief() {
           </div>
         </Section>
 
-        <Section number={11} title="Stakeholders & Approvals" id="stakeholders">
-          <Prompt>Who needs to weigh in, and who has final sign-off? Keep the approval list short — ideally one decision-maker.</Prompt>
-          <div className="space-y-4">
-            <div>
-              <Label required>Final approver</Label>
-              <TextField value={data.finalApprover} onChange={(v) => update("finalApprover", v)} placeholder="Name, title" />
-            </div>
-            <div>
-              <Label>Reviewers</Label>
-              <TextField value={data.reviewers} onChange={(v) => update("reviewers", v)} placeholder="Names, titles" />
-            </div>
-            <div>
-              <Label>Informed (FYI only)</Label>
-              <TextField value={data.informed} onChange={(v) => update("informed", v)} placeholder="Names, titles" />
-            </div>
-          </div>
-        </Section>
 
-        <Section number={12} title="How We'll Measure Success" id="metrics">
+        <Section number={10} title="How We'll Measure Success" id="metrics">
           <Prompt>How will we know this project worked? Pair each objective above with a metric where possible.</Prompt>
           <div className="space-y-3">
             {data.metrics.map((m, i) => (
@@ -441,12 +389,34 @@ export default function BrightPromisesBrief() {
           </div>
         </Section>
 
-        <Section number={13} title="References & Inspiration" id="references">
+        <Section number={11} title="References & Inspiration" id="references">
           <Prompt>Share links, examples, or past work that capture the direction — and note what you like about each. "Anti-examples" (what to avoid) are just as helpful.</Prompt>
           <TextArea value={data.references} onChange={(v) => update("references", v)} placeholder="Links and notes…" rows={5} />
+          <div className="mt-4">
+            <Label>Upload files</Label>
+            <label className="flex flex-col items-center justify-center w-full h-28 border-2 border-dashed border-stone-300/80 rounded-sm cursor-pointer bg-white/40 hover:bg-white/60 hover:border-orange-400 transition-all group">
+              <div className="flex flex-col items-center gap-1 text-stone-400 group-hover:text-stone-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span className="text-[13px]">Click to upload or drag &amp; drop</span>
+                <span className="text-[11px] text-stone-400">Images, PDFs, or any file type</span>
+              </div>
+              <input
+                type="file"
+                multiple
+                className="hidden"
+                onChange={(e) => {
+                  const names = Array.from(e.target.files).map(f => f.name).join(", ");
+                  update("uploadedFiles", names);
+                }}
+              />
+            </label>
+            {data.uploadedFiles && (
+              <p className="mt-2 text-[13px] text-stone-600 font-body">{data.uploadedFiles}</p>
+            )}
+          </div>
         </Section>
 
-        <Section number={14} title="Anything Else?" id="notes">
+        <Section number={12} title="Anything Else?" id="notes">
           <Prompt>Risks, sensitivities, accessibility needs, past partner feedback, or anything else a collaborator should know.</Prompt>
           <TextArea value={data.additionalNotes} onChange={(v) => update("additionalNotes", v)} placeholder="Anything we haven't covered…" rows={4} />
         </Section>
